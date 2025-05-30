@@ -15,7 +15,11 @@ export default class MemoryRepository extends repositoryUser {
     find() {
         return db.users
     }
-
+    findOneByEmail(email){
+        const userObj = db.users.find(u => u.email === email);
+        if (!userObj) throw new Error("User not exists");
+        return userObj
+    }
     remove(id) {
         const userIndex = db.users.findIndex(u => u.id === id);
         if (userIndex === -1) throw new Error("User not found");

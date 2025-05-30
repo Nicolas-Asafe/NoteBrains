@@ -2,7 +2,8 @@ import tomato from "tomato-x";
 import serv from "../../app.js"; 
 
 const register = tomato.NewRegister({
-    method: "GET",            
+    method: "GET",
+    path:"/:id",         
     process: (req, res) => {
         const id = req.params.id;
 
@@ -19,7 +20,9 @@ const register = tomato.NewRegister({
 
             tomato.buildResponse(res, {
                 message: "User listed successfully",
-                data: user,
+                data: {
+                    nameUser:user.name
+                },
                 status: 200,
             });
         } catch (err) {

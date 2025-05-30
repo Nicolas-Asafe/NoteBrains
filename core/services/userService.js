@@ -32,5 +32,8 @@ export default class UserService {
         user.orgs.push(org);
         this.#repo.update(user);
     }
-
+    searchUserByEmail(email){
+        if(!email) throw new Error("Enter the email for search the user")
+        return this.#repo.findOneByEmail(email)
+    }
 }

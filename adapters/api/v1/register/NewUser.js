@@ -1,9 +1,10 @@
+import bcrypt from 'bcrypt'
 import tomato from "tomato-x";
 import serv from "../../app.js";
 
 export const register = tomato.NewRegister({
     method: "POST",
-
+    path:"/register",
     caseError: (err, res) => {
         tomato.buildResponse(res, {
             message: "Error while creating user",
@@ -12,7 +13,7 @@ export const register = tomato.NewRegister({
         });
     },
 
-    process: (req, res) => {
+    process: async (req, res) => {
         const body = req.body;
 
         if (!body || !body.name || !body.password || !body.email) {
@@ -22,7 +23,8 @@ export const register = tomato.NewRegister({
             });
             return;
         }
-
+        const hashPassword = await bcrypt.hash(body.password,10)
+        body.password = hashPassword
         serv.newUser(body);
 
         tomato.buildResponse(res, {
