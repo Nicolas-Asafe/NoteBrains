@@ -1,2 +1,2 @@
-.env
+adapters/api/.env
 node_modules/
