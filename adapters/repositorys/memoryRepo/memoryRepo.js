@@ -1,4 +1,3 @@
-import User from "../../../core/entitys/user.js";
 import repositoryUser from "../../../core/interfaces/repositoryUsers.js";
 
 const db = {
@@ -8,6 +7,9 @@ const db = {
 export default class MemoryRepository extends repositoryUser {
     save(user) {
         if (user.id === undefined || user.id === null) user.id = db.users.length;
+        const userName = db.users.find(u=>user.name === u.name)
+        if(userName) throw new Error("This name is used")
+        if(userName) throw new Error("This name is used")
         db.users.push(user);
     }
     find() {
