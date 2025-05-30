@@ -1,6 +1,5 @@
 import tomato from "tomato-x";
 import jwt from 'jsonwebtoken'
-let user 
 
 export default async (req, res, next) => {
     const auth = req.headers["authorization"] || "";
@@ -17,7 +16,6 @@ export default async (req, res, next) => {
         const decoded = jwt.verify(token, process.env.KEY_ACCESS_JWT);
 
         req.user = decoded; 
-        user = decoded
         next();
     } catch (err) {
         return tomato.buildResponse(res, {
@@ -27,5 +25,3 @@ export default async (req, res, next) => {
         });
     }
 };
-
-export {user}

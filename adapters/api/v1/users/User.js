@@ -21,7 +21,8 @@ const register = tomato.NewRegister({
             tomato.buildResponse(res, {
                 message: "User listed successfully",
                 data: {
-                    nameUser:user.name
+                    nameUser:user.name,
+                    orgs:user.orgs
                 },
                 status: 200,
             });

@@ -1,14 +1,12 @@
 import tomato from "tomato-x";
 import serv from "../../../app.js";
-import {AllOfUser} from './me.js'
-
 
 export const register = tomato.NewRegister({
     method: "DELETE",
     process: (req, res) => {
-        const id = AllOfUser.id;
+        const id = serv.searchUserByEmail(req.user.email).id;
 
-        if (!id) {
+        if (id === undefined || id === null) {
             tomato.buildResponse(res, {
                 message: "id not found",
                 status: 400, 

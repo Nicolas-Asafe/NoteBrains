@@ -7,7 +7,14 @@ export const register = tomato.NewRegister({
     middlewares:[xapikey_middleware],
     path:"/",
     process:(req,res)=>{
-        tomato.buildResponse(res,{data:serv.listUsers(),message:"Users listed sucessfuly",status:202})
+        const users = serv.listUsers().map(u=>(
+            {name:u.name,orgs:u.orgs}
+        ))
+        tomato.buildResponse(res,{
+            data:users,
+            message:"Users listed sucessfuly",
+            status:202
+        })
     },
     caseError:(err,res)=>{
         tomato.buildResponse(res,{message:err.message,status:500})

@@ -12,6 +12,7 @@ export default class OrgService {
 
     deleteOrgById(userId, orgId) {
         const user = this.#userRepo.findOne(userId);
+        if(!user) throw new Error("Org not exists")
         user.orgs = user.orgs.filter(org => org.id !== orgId);
         this.#userRepo.update(user);
     }
