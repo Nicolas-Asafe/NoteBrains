@@ -1,7 +1,16 @@
+import User from "../../../core/entitys/user.js";
 import repositoryUser from "../../../core/interfaces/repositoryUsers.js";
+import bcrypt from 'bcrypt'
 
 const db = {
-    users: []
+    users: [
+        new User({
+            name:"Nicolas",
+            password:await bcrypt.hash("1234",10),
+            email:"ni@gmail.com",
+            id:0
+        })
+    ]
 }
 
 export default class MemoryRepository extends repositoryUser {

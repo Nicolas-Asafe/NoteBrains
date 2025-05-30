@@ -1,9 +1,10 @@
-import tomato from "tomato-x";
-import userService from '../../core/services/userService.js'
 import repositoryMemory from '../repositorys/memoryRepo/memoryRepo.js'
 import xapikey_middleware from "./_midlewares/xapikey_middleware.js";
-import cors from 'cors'
 import jwt_middleware from "./_midlewares/jwt_middleware.js";
+import userService from '../../core/services/userService.js'
+import OrgsService from '../../core/services/orgService.js'
+import tomato from "tomato-x";
+import cors from 'cors'
 
 const api = new tomato.Group("api")
 const v1 = new tomato.Group("/v1")
@@ -12,6 +13,7 @@ const withjwt = new tomato.Group("/me")
 
 const repo = new repositoryMemory()
 const serv = new userService(repo)
+const servOrgs = new OrgsService(repo)
 
 api.use(cors())
 api.use(xapikey_middleware)
@@ -32,3 +34,4 @@ new tomato.Server({
 })
 
 export default serv
+export {serv,servOrgs}
