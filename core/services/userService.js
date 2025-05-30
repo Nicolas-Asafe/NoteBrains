@@ -13,7 +13,7 @@ export default class UserService {
         this.#repo.save(newUser)
     }
     deleteUser(id) {
-        if (!id) throw new Error("Enter the user id for delete")
+        if (id === undefined || id === null) throw new Error("Enter the user id for delete")
         this.#repo.remove(id)
     }
     listUsers() {
@@ -24,7 +24,7 @@ export default class UserService {
         return this.#repo.findOne(id)
     }
     edit(newUser) {
-        if (!newUser.id) throw new Error("Enter the user id for update the user")
+        if (newUser.id === undefined || newUser.id === null) throw new Error("Enter the user id for update the user")
         this.#repo.update(newUser)
     }
     addOrgById(userId, org) {

@@ -1,49 +1,69 @@
-// Importa o serviço que lida com usuários
+// test.js
+
 import UserService from "./core/services/userService.js";
-
-// Importa o repositório em memória onde os dados vão ser armazenados
 import MemoryRepository from "./adapters/repositorys/memoryRepo/memoryRepo.js";
-
-// Importa a entidade OrgNote (a nota que será adicionada ao user)
 import OrgNote from "./core/entitys/orgs/OrgNote.js";
 
-// Cria o repositório onde os dados dos usuários vão ficar salvos
+// Cria o repositório em memória (pode ser trocado futuramente por MongoDB)
 const repo = new MemoryRepository();
 
-// Cria o serviço de usuário, passando o repositório
-const serv = new UserService(repo);
+// Cria o serviço de usuário passando o repositório
+const userService = new UserService(repo);
 
 function main() {
-    try {
-        // =============== CRIAÇÃO DO USUÁRIO ===============
-        serv.newUser({
-            name: "Nicolas",            // nome do user
-            password: "1234",           // senha do user
-            email: "brasil@gmail.com"   // email do user
-        });
+  try {
+    // 1. Criação de novo usuário
+    userService.newUser({
+      name: "Nicolas",
+      password: "1234",
+      email: "brasil@gmail.com",
+    });
+    console.log("Usuário criado!");
 
-        // =============== CRIAÇÃO DA NOTA ===============
-        const nota = new OrgNote(
-            "Minha nota",               // título da nota
-            new Date(),                 // data atual
-            "Minha descrição"           // conteúdo da nota
-        );
+    // 2. Criação de uma nova nota (OrgNote)
+    const nota = new OrgNote("Minha nota", new Date(), "Descrição top");
+    console.log("Nota criada!");
 
-        // =============== ADICIONA A NOTA AO USUÁRIO COM ID 0 ===============
-        serv.addOrgById(0, nota);        // adiciona a nota no user com ID 0
+    // 3. Adiciona a nota ao usuário com ID 0
+    userService.addOrgById(0, nota);
+    console.log("Nota adicionada ao usuário!");
 
-        // =============== MOSTRA USUÁRIOS COM SUAS NOTAS ===============
-        console.table(serv.listUsers().map(user => ({
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            orgs: user.orgs.map(org => org.title) // mostra só o título das notas
-        })));
+    // 4. Lista todos os usuários e exibe infos
+    const users = userService.listUsers();
+    console.log("Lista de usuários:");
+    console.table(users.map(u => ({
+      id: u.id,
+      name: u.name,
+      email: u.email,
+      orgs: u.orgs.length
+    })));
 
-    } catch (err) {
-        console.error(err.message);
-    }
+    // 5. Busca usuário por ID
+    const userFound = userService.searchUserById(0);
+    console.log("Usuário encontrado pelo ID:");
+    console.log(userFound);
+
+    // 6. Edita usuário (simula uma mudança de nome)
+    userFound.name = "Nicolas Alterado";
+    userService.edit(userFound);
+    console.log("Usuário editado com sucesso!");
+
+    // 7. Mostra usuário editado
+    const updated = userService.searchUserById(0);
+    console.log("Usuário atualizado:");
+    console.log(updated);
+
+    // 8. Deleta usuário
+    userService.deleteUser(0);
+    console.log("Usuário deletado!");
+
+    // 9. Lista final de usuários (deve estar vazia)
+    console.log("Lista após exclusão:");
+    console.table(userService.listUsers());
+
+  } catch (err) {
+    console.error("ERRO:", err.message);
+  }
 }
 
 main();
-
