@@ -14,28 +14,19 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    let response = {
-      data: {
-        message: 's'
-      }
-    }
     try {
-      response = await axios.post('https://2e18-2804-1810-e706-3500-7c43-b51d-b51b-d7d5.ngrok-free.app/api/v1/login', {
+      const response = await axios.post('https://afb5-2804-1810-e706-3500-7c43-b51d-b51b-d7d5.ngrok-free.app/api/v1/login', {
         email,
         password
       }, {
         headers: {
-          'x-api-key': 'kingjs_4534'
+          'x-api-key': 'kingjs_4534',
         }
       });
-      console.log(response.data)
-      setMessage([response.data.message, true]);
-      router.push('/dashboard');
+      setMessage([response?.data?.message,true])
     } catch (error) {
-      const errorMessage =
-        error?.response?.data?.message || 'Erro ao logar. Tente novamente.';
-
-      setMessage([errorMessage, false]);
+      console.log(error.response?.data?.message)
+      setMessage([error.response?.data?.message,false])
     }
     finally {
       setLoading(false);
