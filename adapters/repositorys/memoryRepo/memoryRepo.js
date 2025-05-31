@@ -5,9 +5,9 @@ import bcrypt from 'bcrypt'
 const db = {
     users: [
         new User({
-            name:"Nicolas",
+            name:"admin",
             password:await bcrypt.hash("1234",10),
-            email:"ni@gmail.com",
+            email:"admin.com",
             id:0
         })
     ]
