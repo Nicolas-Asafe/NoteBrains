@@ -5,6 +5,7 @@ import userService from '../../core/services/userService.js'
 import OrgsService from '../../core/services/orgService.js'
 import tomato from "tomato-x";
 import cors from 'cors'
+api.use(cors())
 
 const api = new tomato.Group("api")
 const v1 = new tomato.Group("/v1")
@@ -15,7 +16,6 @@ const repo = new repositoryMemory()
 const serv = new userService(repo)
 const servOrgs = new OrgsService(repo)
 
-api.use(cors())
 api.use(xapikey_middleware)
 withjwt.use(jwt_middleware)
 
