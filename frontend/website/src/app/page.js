@@ -7,6 +7,7 @@ import { useMessage } from '../hooks/useMessage';
 import { useMessageType } from '../hooks/useMessageType';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 export default function Home() {
   const { email, setEmail } = useEmail();
@@ -19,7 +20,7 @@ export default function Home() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://d7a8-2804-1810-e706-3500-7c43-b51d-b51b-d7d5.ngrok-free.app/api/v1/login', {
+      const response = await axios.post('https://afb5-2804-1810-e706-3500-7c43-b51d-b51b-d7d5.ngrok-free.app/api/v1/login', {
         email,
         password
       }, {
@@ -28,6 +29,7 @@ export default function Home() {
         }
       });
       console.log('Login bem-sucedido:', response.data);
+      Cookies.set('token', response.data.token);
       setMessage('Login bem-sucedido');
       setMessageType('sucess');
       
