@@ -15,7 +15,7 @@
   --link: rgb(136, 136, 136);
 }
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
   :root {
     --foreground: #161616;
     --background: #dadada;

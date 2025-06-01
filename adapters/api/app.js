@@ -15,7 +15,7 @@ const repo = new repositoryMemory()
 const serv = new userService(repo)
 const servOrgs = new OrgsService(repo)
 
-api.use(cors())
+api.use(cors()) 
 api.use(xapikey_middleware)
 withjwt.use(jwt_middleware)
 

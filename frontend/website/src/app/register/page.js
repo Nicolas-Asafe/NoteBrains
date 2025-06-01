@@ -17,7 +17,7 @@ export default function Register() {
     try {
 
       const response = await axios.post(
-        'https://afb5-2804-1810-e706-3500-7c43-b51d-b51b-d7d5.ngrok-free.app/api/v1/register',
+        'https://a414-2804-1810-e706-3500-7c43-b51d-b51b-d7d5.ngrok-free.app/api/v1/register',
         { name, email, password },
         { headers: { 'x-api-key': 'kingjs_4534' } }
       );
@@ -40,8 +40,7 @@ export default function Register() {
             className="hoverMega"
             type="text"
             placeholder="Digite seu Nome de Usuário"
-            minLength={8}
-            maxLength={16}
+            maxLength={15}
             required
             value={name}
             onChange={(e) => setName(e.target.value)}

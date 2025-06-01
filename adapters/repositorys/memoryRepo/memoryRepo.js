@@ -5,10 +5,10 @@ import bcrypt from 'bcrypt'
 const db = {
     users: [
         new User({
-            name:"admin",
-            password:await bcrypt.hash("1212Admin",10),
-            email:"admin@admin.com",
-            id:0
+            name: "admin",
+            password: await bcrypt.hash("1212Admin", 10),
+            email: "admin@admin.com",
+            id: 0
         })
     ]
 }
@@ -16,15 +16,18 @@ const db = {
 export default class MemoryRepository extends repositoryUser {
     save(user) {
         if (user.id === undefined || user.id === null) user.id = db.users.length;
-        const userName = db.users.find(u=>user.name === u.name)
-        if(userName) throw new Error("This name is used")
-        if(userName) throw new Error("This name is used")
+        const userName = db.users.find(u => user.name === u.name)
+        const userEmail = db.users.find(u => user.Email === u.Email)
+
+        if (userName) throw new Error("This name is used")
+        if (userEmail) throw new Error("This email is used")
+
         db.users.push(user);
     }
     find() {
         return db.users
     }
-    findOneByEmail(email){
+    findOneByEmail(email) {
         const userObj = db.users.find(u => u.email === email);
         if (!userObj) throw new Error("User not exists");
         return userObj
