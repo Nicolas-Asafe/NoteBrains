@@ -25,9 +25,9 @@ export default function Home() {
           'x-api-key': 'kingjs_4534',
         }
       });
+      setMessage([response?.data?.message,true])
 
-      setMessage([response?.data?.data,true])
-      Cookies.set('token', response.data.token);
+      Cookies.set('token', response?.data?.data?.token);
       
       router.push('/dashboard');
     } catch (error) {
