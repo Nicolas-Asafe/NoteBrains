@@ -26,13 +26,13 @@ export default function Home() {
         }
       });
 
-      setMessage([response?.data?.message,true])
+      setMessage([response?.data?.data,true])
       Cookies.set('token', response.data.token);
       
       router.push('/dashboard');
     } catch (error) {
       console.log(error.response?.data?.message)
-      setMessage([error.response?.data?.message,false])
+      setMessage([error.response?.data?.data,false])
     }
     finally {
       setLoading(false);

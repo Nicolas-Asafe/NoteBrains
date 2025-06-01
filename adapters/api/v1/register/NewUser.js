@@ -17,11 +17,7 @@ export const register = tomato.NewRegister({
         const body = req.body;
 
         if (!body || !body.name || !body.password || !body.email) {
-            tomato.buildResponse(res, {
-                message: "Missing credentials: name, password, and email are required.",
-                status: 400 
-            });
-            return;
+                throw new Error("Missing credentials: name, password, and email are required.")
         }
         const hashPassword = await bcrypt.hash(body.password,10)
         body.password = hashPassword

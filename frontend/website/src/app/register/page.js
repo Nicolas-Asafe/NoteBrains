@@ -25,7 +25,7 @@ export default function Register() {
       router.push('/');
     } catch (error) {
       const errorMessage =
-        error?.response?.data?.message || 'Erro no registro. Tente novamente.';
+        error?.response?.data?.data.error || 'Erro no registro. Tente novamente.';
       setMessage([errorMessage, false]);
     }
   };
