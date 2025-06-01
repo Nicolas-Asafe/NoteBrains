@@ -29,7 +29,7 @@ v1.addGroup(withjwt)
 api.addGroup(v1)
 
 new tomato.Server({
-    PORT: 3000,
+    PORT: 1000,
     groups: [api]
 })
 
