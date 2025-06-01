@@ -6,7 +6,7 @@ export const register = tomato.NewRegister({
     method: "POST",
     path: "/notes",
     caseError:(err,req,res)=>{
-        tomato.buildResponse(res,{message:err.message,status:500})
+        tomato.buildResponse(res,{message:"erro for create note",data:err.message,status:500})
     },
     process:async (req, res) => {
         const body = req.body;

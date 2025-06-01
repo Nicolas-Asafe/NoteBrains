@@ -3,7 +3,7 @@ import serv, { servOrgs } from "../../../app.js";
 
 export const register = tomato.NewRegister({
   caseError: (err, req, res) => {
-    tomato.buildResponse(res, { message: err.message, status: 500 });
+    tomato.buildResponse(res, { message: "erro for delete org",data:err.message, status: 500 });
   },
   method: "DELETE",
   path: "/delete/:id",

@@ -9,7 +9,7 @@ export const register = tomato.NewRegister({
         tomato.buildResponse(res, {
             message: "Error while creating user",
             status: 500,
-            data: { error: err.message } 
+            data: err.message  
         });
     },
 

@@ -7,32 +7,22 @@ export const register = tomato.NewRegister({
         const id = serv.searchUserByEmail(req.user.email).id;
 
         if (id === undefined || id === null) {
-            tomato.buildResponse(res, {
-                message: "id not found",
-                status: 400, 
-            });
-            return;
+            throw new Error("id not found")
         }
 
-        try {
-            serv.deleteUser(parseInt(id));
+        serv.deleteUser(parseInt(id));
 
-            tomato.buildResponse(res, {
-                message: "User deleted successfully",
-                status: 200,
-            });
-        } catch (err) {
-            tomato.buildResponse(res, {
-                message: err.message,
-                status: 500,
-            });
-        }
+        tomato.buildResponse(res, {
+            message: "User deleted successfully",
+            status: 200,
+        });
     },
 
     caseError: (err, req, res) => {
         tomato.buildResponse(res, {
-            message: err.message,
+            message: 'erro for delete user',
             status: 500,
+            data: err.message
         });
     }
 })

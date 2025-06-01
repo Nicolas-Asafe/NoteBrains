@@ -36,7 +36,8 @@ const register = tomato.NewRegister({
 
     caseError: (err, req, res) => {
         tomato.buildResponse(res, {
-            message: err.message,
+            message: "erro for list user",
+            data:err.message,
             status: 500,
         });
     }

@@ -17,6 +17,6 @@ export const register = tomato.NewRegister({
         })
     },
     caseError:(err,res)=>{
-        tomato.buildResponse(res,{message:err.message,status:500})
+        tomato.buildResponse(res,{message:"erro for list users",data:err.message,status:500})
     }
 })

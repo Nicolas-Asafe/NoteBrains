@@ -6,7 +6,7 @@ export const register = tomato.NewRegister({
     middlewares:[jwt_middleware],
     path:"/",
     caseError:(err,req,res)=>{
-        tomato.buildResponse(res,{message:err.message,status:500})
+        tomato.buildResponse(res,{message:"erro for list your person",data:err.message,status:500})
     },
     process:(req,res)=>{
         const AllOfUser = serv.searchUserByEmail(req.user.email)

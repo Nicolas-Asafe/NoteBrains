@@ -5,7 +5,7 @@ export const register = tomato.NewRegister({
   method: "PUT",
   path: "/edit/:id",
   caseError: (err, req, res) => {
-    tomato.buildResponse(res, { message: err.message, status: 500 });
+    tomato.buildResponse(res, { message: "erro for update org",data:err.message, status: 500 });
   },
   process: async (req, res) => {
     const orgId = parseInt(req.params.id);
