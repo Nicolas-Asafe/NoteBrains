@@ -3,6 +3,8 @@
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
+
 
 export default function Home() {
   const [email, setEmail] = useState('');
@@ -23,7 +25,11 @@ export default function Home() {
           'x-api-key': 'kingjs_4534',
         }
       });
+
       setMessage([response?.data?.message,true])
+      Cookies.set('token', response.data.token);
+      
+      router.push('/dashboard');
     } catch (error) {
       console.log(error.response?.data?.message)
       setMessage([error.response?.data?.message,false])
