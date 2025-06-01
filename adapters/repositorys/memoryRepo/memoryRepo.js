@@ -6,8 +6,8 @@ const db = {
     users: [
         new User({
             name:"admin",
-            password:await bcrypt.hash("1234",10),
-            email:"admin.com",
+            password:await bcrypt.hash("1212Admin",10),
+            email:"admin@admin.com",
             id:0
         })
     ]
