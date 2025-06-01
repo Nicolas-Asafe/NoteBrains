@@ -40,7 +40,7 @@ export default function Register() {
             className="hoverMega"
             type="text"
             placeholder="Digite seu Nome de Usuário"
-            maxLength={15}
+            maxLength={16}
             required
             value={name}
             onChange={(e) => setName(e.target.value)}

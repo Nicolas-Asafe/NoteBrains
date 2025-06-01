@@ -5,7 +5,7 @@ import serv from "../../app.js";
 export const register = tomato.NewRegister({
     method: "POST",
     path:"/register",
-    caseError: (err, res) => {
+    caseError: (err, req,res) => {
         tomato.buildResponse(res, {
             message: "Error while creating user",
             status: 500,

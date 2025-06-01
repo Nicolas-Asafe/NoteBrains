@@ -12,11 +12,11 @@ export const register = tomato.NewRegister({
     const updates = req.body;
     const user = await serv.searchUserByEmail(req.user.email)
     const userId = user.id;
+  
+    const org = await servOrgs.getOrgById(userId,orgId);
+    if (!org) throw new Error("Org not found or access denied.");
 
-    const org = await servOrgs.getOrgById(orgId);
-    if (!org || org.userId !== userId) throw new Error("Org not found or access denied.");
-
-    const success = await servOrgs.updateOrgById(orgId, updates);
+    const success = await servOrgs.editOrgById(userId,orgId, updates);
     if (!success) throw new Error("Failed to update org.");
 
     tomato.buildResponse(res, {

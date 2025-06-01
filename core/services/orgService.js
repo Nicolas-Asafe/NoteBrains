@@ -17,15 +17,16 @@ export default class OrgService {
         this.#userRepo.update(user);
     }
 
-    editOrgById(userId, orgId, newData) {
+    async editOrgById(userId, orgId, newData) {
         const user = this.#userRepo.findOne(userId);
         const index = user.orgs.findIndex(org => org.id === orgId);
         if (index === -1) throw new Error("Org not found");
-
         user.orgs[index] = {
             ...user.orgs[index],
             ...newData
         };
-        this.#userRepo.update(user);
+        const result = await this.#userRepo.update(user);
+        if(result) return true;
+        return false
     }
 }

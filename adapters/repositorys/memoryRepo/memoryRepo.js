@@ -17,7 +17,7 @@ export default class MemoryRepository extends repositoryUser {
     save(user) {
         if (user.id === undefined || user.id === null) user.id = db.users.length;
         const userName = db.users.find(u => user.name === u.name)
-        const userEmail = db.users.find(u => user.Email === u.Email)
+        const userEmail = db.users.find(u => user.email === u.email)
 
         if (userName) throw new Error("This name is used")
         if (userEmail) throw new Error("This email is used")
@@ -47,8 +47,11 @@ export default class MemoryRepository extends repositoryUser {
 
     update(user) {
         const index = db.users.findIndex(u => u.id === user.id);
-        if (index === -1) throw new Error("User not found");
+        if (index === -1){ 
+            throw new Error("User not found") 
+        }
         db.users[index] = user;
+        return db.users[index]
     }
 
 }
