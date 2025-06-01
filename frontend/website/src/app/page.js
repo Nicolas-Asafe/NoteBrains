@@ -40,7 +40,7 @@ export default function Home() {
   };
 
   return (
-    <section className="stanContainer1 centerContainer">
+    <section className="stanContainer1 centerContainer AnimaAppear1">
       <form onSubmit={handleSubmit} className='stanForm1'>
         <h1>Login</h1>
         <div>
