@@ -25,13 +25,13 @@ export default function Register() {
       router.push('/');
     } catch (error) {
       const errorMessage =
-        error?.response?.data?.message || 'Erro no registro. Tente novamente.';
+        error?.response?.data?.data.error || 'Erro no registro. Tente novamente.';
       setMessage([errorMessage, false]);
     }
   };
 
   return (
-    <section className="stanContainer1 centerContainer">
+    <section className="stanContainer1 centerContainer AnimaAppear1">
       <form onSubmit={handleSubmit} className="stanForm1">
         <h1>Registro</h1>
 

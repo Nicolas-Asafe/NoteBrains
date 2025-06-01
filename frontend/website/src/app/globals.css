@@ -15,7 +15,7 @@
   --link: rgb(136, 136, 136);
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     --foreground: #161616;
     --background: #dadada;
@@ -133,4 +133,28 @@ a:hover {
   font-size: 12px;
   text-align: center;
   transition: 0.2s;
+}
+.AnimaAppear1 {
+  animation:  0.7s ease-out Appear1;
+}
+
+
+@keyframes Appear1 {
+  0% {
+    opacity: 0;
+    transform:  translate(-50%, -40%);
+  }
+
+  25% {
+    opacity: 1;
+    transform:  translate(-50%, -30%);
+  }
+
+  50% {
+    transform: translate(-50%, -60%);
+  }
+
+  100% {
+    transform: translate(-50%, -50%);
+  } 
 }

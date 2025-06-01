@@ -12,11 +12,7 @@ export const register = tomato.NewRegister({
         const body = req.body;
 
         if (!body || !body.title || !body.notes) {
-            tomato.buildResponse(res, {
-                message: "Missing credentials: title and notes are required.",
-                status: 400
-            });
-            return;
+            throw new Error("Missing credentials: title and notes are required.")
         }
         const user = serv.searchUserByEmail(req.user.email)
         const newNote = new OrgNote(body.title,new Date(),body.notes,user.orgs.length)
