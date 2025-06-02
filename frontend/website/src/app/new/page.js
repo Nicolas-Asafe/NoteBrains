@@ -7,8 +7,10 @@ export default function page(){
                 <h2>Select a org for create</h2>
                 <Link href={'/dashboard'}>back</Link>
             </header>
-            <div className="stanContainer1">
-                <Link href={'/note'}>New org note</Link>
+            <div className="centerItemsColls">
+                <div>
+                   <Link href={'/new/note'}>New org note</Link>
+                </div>
             </div>
         </div>
     )

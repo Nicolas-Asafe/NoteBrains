@@ -39,6 +39,7 @@ export default function Sidebar({ allItems = [] }) {
             {allItems.map(item => (
               <li
                 key={item.id}
+                className="AppearBottomBar"
               >
                 <span>
                   {item.title || "Untitled"}

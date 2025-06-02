@@ -6,18 +6,26 @@ import { useRouter } from 'next/navigation';
 import Sidebar from '../../components/Sidebar';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import { Trash, Eye, Edit } from 'lucide-react';
+import { Trash, Eye, Edit, X } from 'lucide-react';
 import styles from '../../styles/dashboard.module.css';
 import BottomBar from '@/components/bottomBar';
 
 export default function Dashboard() {
   const router = useRouter();
   const [me, setMe] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [orgModal, setOrgModal] = useState({
+    title: "",
+    notes: "",
+    createdAt: ''
+  });
 
   async function ReqUser() {
+    setLoading(true);
     try {
       const response = await axios.get(
-        'https://a414-2804-1810-e706-3500-7c43-b51d-b51b-d7d5.ngrok-free.app/api/v1/me/person',
+        'https://notebrains.onrender.com/api/v1/me/person',
         {
           headers: {
             'x-api-key': 'kingjs_4534',
@@ -26,14 +34,53 @@ export default function Dashboard() {
           }
         }
       );
-      setMe(response?.data?.data?.user)
+      setMe(response?.data?.data?.user);
     } catch (err) {
       console.error("Erro ao buscar usuário:", err?.response?.data || err.message);
+    } finally {
+      setLoading(false);
     }
   }
 
-  useEffect( () => {
-    const isAuthenticated =  authMiddleware();
+  async function DeleteOrg(id) {
+    try {
+      await axios.delete(
+        `https://notebrains.onrender.com/api/v1/me/orgs/delete/${id}`,
+        {
+          headers: {
+            'x-api-key': 'kingjs_4534',
+            'Authorization': `Bearer ${Cookies.get("token")}`,
+            'ngrok-skip-browser-warning': 'true'
+          }
+        }
+      );
+      ReqUser();
+    } catch (err) {
+      console.log("Erro ao deletar org:", err?.response?.data?.message || err.message);
+    }
+  }
+
+  async function ReqOrg(id) {
+    try {
+      const response = await axios.get(
+        `https://notebrains.onrender.com/api/v1/me/orgs/${id}`,
+        {
+          headers: {
+            'x-api-key': 'kingjs_4534',
+            'Authorization': `Bearer ${Cookies.get("token")}`,
+            'ngrok-skip-browser-warning': 'true'
+          }
+        }
+      );
+      setOrgModal(response?.data?.data);
+      setOrgModalVisible(true);
+    } catch (err) {
+      console.log("Erro ao buscar org:", err?.response?.data?.message || err.message);
+    }
+  }
+
+  useEffect(() => {
+    const isAuthenticated = authMiddleware();
     if (!isAuthenticated) {
       router.push('/');
       return;
@@ -42,40 +89,74 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <main className={styles['dashboard']}>
-      <Sidebar key={0} allItems={me?.orgs} />
+    <>
+      <main className={`${styles['dashboard']} AnimaAppear2`}>
+        <Sidebar key={0} allItems={me?.orgs} />
 
-      <div className={styles['content']} >
-        <div className={styles["Header-home"]}>
-          <h1>My Orgs</h1>
-          <h2>Noteke</h2>
-        </div>
+        <div className={styles['content']}>
+          <div className={styles["Header-home"]}>
+            <h1>My Orgs</h1>
+            <h2>Noteke</h2>
+          </div>
 
-        <div className={styles["Org-list"]}>
-          {me?.orgs?.length ? me.orgs.map((org, index) => (
-            <div key={index} className={styles["Org"]}>
-              <div className={styles["l"]}>
-                <h3 className={styles["title"]}>{org?.title || "No title"}</h3>
-                <span className={styles["type"]}>Type: {org?.type || "Unknown"}</span>
+          {loading ? (
+              <div className={styles["Org-list"]}>
+                <p className={styles["loading"]}>loading orgs...</p>
               </div>
-              <div className={styles["r"]}>
-                <div className={`${styles["btn"]} ${styles["a1"]}`}>
-                  <Trash />
+          ) : (
+            <div className={styles["Org-list"]}>
+              {me?.orgs?.length ? me.orgs.map((org, index) => (
+                <div key={index} className={`${styles["Org"]} AppearBottomBar`}>
+                  <div className={styles["l"]}>
+                    <h3 className={styles["title"]}>{org?.title || "No title"}</h3>
+                    <span className={styles["type"]}>Type: {org?.type || "Unknown"}</span><br />
+                    <span className={styles["type"]}>
+                      Create at: {org?.createdAt ? new Date(org.createdAt).toLocaleDateString() : "Unknown"}
+                    </span>
+                  </div>
+
+                  <div className={styles["r"]}>
+                    <div className={`${styles["btn"]} ${styles["a1"]}`} onClick={() => DeleteOrg(org.id)}>
+                      <Trash />
+                    </div>
+                    <div className={`${styles["btn"]} ${styles["a2"]}`} onClick={() => {
+                      ReqOrg(org.id)
+                      setIsModalVisible(true)
+                    }}>
+                      <Eye />
+                    </div>
+                    <div className={`${styles["btn"]} ${styles["a3"]}`}>
+                      <Edit />
+                    </div>
+                  </div>
                 </div>
-                <div className={`${styles["btn"]} ${styles["a2"]}`}>
-                  <Eye />
-                </div>
-                <div className={`${styles["btn"]} ${styles["a3"]}`}>
-                  <Edit />
-                </div>
+              )) : (
+                <p>You don’t have orgs</p>
+              )}
+            </div>
+          )}
+
+          {isModalVisible && (
+            <div className={`centerContainer stanContainer2 animaAppear1 full`}>
+              <header>
+                modal of your org <X style={{cursor:'pointer'}} onClick={() => setIsModalVisible(false)} />
+              </header>
+              <header>
+                <h3>{orgModal.title || "Selecione uma organização"}</h3>
+                <small>
+                  {orgModal.createdAt && `Criada em: ${new Date(orgModal.createdAt).toLocaleDateString()}`}
+                </small>
+              </header>
+              <div style={{ 
+                height:"80%"
+              }}><p>{orgModal.notes}</p>
               </div>
             </div>
-          )) : (
-            <p>You don’t have orgs</p>
           )}
+
         </div>
-        <BottomBar/>
-      </div>
-    </main>
+      </main>
+      <BottomBar />
+    </>
   );
 }

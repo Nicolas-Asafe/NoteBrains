@@ -17,7 +17,7 @@ export default function Home() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post('https://a414-2804-1810-e706-3500-7c43-b51d-b51b-d7d5.ngrok-free.app/api/v1/login', {
+      const response = await axios.post('https://notebrains.onrender.com/api/v1/login', {
         email,
         password
       }, {

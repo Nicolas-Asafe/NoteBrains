@@ -11,7 +11,7 @@ export default function Person() {
     async function ReqUser() {
         try {
             const response = await axios.get(
-                'https://a414-2804-1810-e706-3500-7c43-b51d-b51b-d7d5.ngrok-free.app/api/v1/me/person',
+                'https://notebrains.onrender.com/api/v1/me/person',
                 {
                     headers: {
                         'x-api-key': 'kingjs_4534',
