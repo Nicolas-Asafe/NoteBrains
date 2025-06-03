@@ -17,7 +17,7 @@ export default function Home() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post('https://a414-2804-1810-e706-3500-7c43-b51d-b51b-d7d5.ngrok-free.app/api/v1/login', {
+      const response = await axios.post('https://notebrains.onrender.com/api/v1/login', {
         email,
         password
       }, {
@@ -25,14 +25,14 @@ export default function Home() {
           'x-api-key': 'kingjs_4534',
         }
       });
-
       setMessage([response?.data?.message,true])
-      Cookies.set('token', response.data.token);
+
+      Cookies.set('token', response?.data?.data?.token);
       
       router.push('/dashboard');
     } catch (error) {
       console.log(error.response?.data?.message)
-      setMessage([error.response?.data?.message,false])
+      setMessage([error.response?.data?.data,false])
     }
     finally {
       setLoading(false);
@@ -40,7 +40,7 @@ export default function Home() {
   };
 
   return (
-    <section className="stanContainer1 centerContainer">
+    <section className="stanContainer1 centerContainer AnimaAppear1">
       <form onSubmit={handleSubmit} className='stanForm1'>
         <h1>Login</h1>
         <div>

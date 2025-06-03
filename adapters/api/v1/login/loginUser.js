@@ -9,24 +9,16 @@ export const register = tomato.NewRegister({
     process: async (req, res) => {
         const body = req.body
         if (!body || !body.email || !body.password) {
-            return tomato.buildResponse(res, {
-                message: "Credentials are missing (email, password)",
-                status: 400
-            })
+                throw new Error("Credentials are missing (email, password)")
         }
+        
         const user = serv.searchUserByEmail(body.email)
         if (!user) {
-            return tomato.buildResponse(res, {
-                message: "User not found",
-                status: 404
-            })
+            throw new Error("User not found")
         }
         const match = await bcrypt.compare(body.password, user.password)
         if (!match) {
-            return tomato.buildResponse(res, {
-                message: "Invalid password",
-                status: 401
-            })
+            throw new Error("Invalid password")
         }
         const token = jwt.sign(
             { id: user.id, email: user.email },
