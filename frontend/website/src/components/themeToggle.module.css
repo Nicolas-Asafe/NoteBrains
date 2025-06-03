@@ -1,0 +1,12 @@
+.theme-toggle-btn {
+  padding: 10px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.theme-toggle-btn:hover {
+  transform: rotate(20deg);
+}
