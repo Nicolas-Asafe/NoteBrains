@@ -19,7 +19,7 @@ export default function Home() {
     try {
       const response = await axios.post('https://notebrains.onrender.com/api/v1/login', {
         email,
-        password
+        password 
       }, {
         headers: {
           'x-api-key': 'kingjs_4534',
@@ -40,7 +40,7 @@ export default function Home() {
   };
 
   return (
-    <section className="stanContainer1 centerContainer AnimaAppear1">
+    <section className="stanContainer1 stanFull1 centerContainer AnimaAppear1">
       <form onSubmit={handleSubmit} className='stanForm1'>
         <h1>Login</h1>
         <div>

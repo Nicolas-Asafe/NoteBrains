@@ -86,23 +86,23 @@ a:hover {
   width: 90%;
   max-width: 500px;
 }
+
 .stanContainer1 {
   background-color: var(--backContainer2);
-  box-shadow: 2px 3px 3px var(--shadow);
+  box-shadow: var(--shadow);
   border: 2px solid var(--border-color);
   border-radius: var(--br);
   padding: 10px;
 }
 
-
 .stanFull2{
-  width: 80%;
+  width: 90%;
   height: 80%;
   max-width: 800px;
 }
 .stanContainer2{
   background-color: var(--backContainer2);
-  box-shadow: 2px 2px 10px var(--shadow);
+  box-shadow: var(--shadow);
   border: 2px solid var(--border-color);
   border-radius: var(--br);
   padding: 10px;
@@ -124,14 +124,14 @@ a:hover {
   }
   @media (max-width:900px) {
     header{
-      display: flex;
-      flex-direction: row;
-      padding: 10px;
-      font-size: 13px;
-      a{
-        margin-right: 10px;
-      }
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    font-size: 13px;
+    a{
+      margin-right: 10px;
     }
+  }
   }
   div{
     padding: 10px;
@@ -163,10 +163,6 @@ a:hover {
   background-color: var(--backContainer2);
 }
 
-.modal{
-  animation:Appear1 0.7s ease-in-out;
-  box-shadow: 0px 10px 30px var(--shadow);
-}
 .hoverMega {
   transition: 0.2s ease;
 }
@@ -187,10 +183,8 @@ a:hover {
     box-shadow: var(--shadow);
     border: 2px solid var(--border-color2);
     border-radius: var(--br);
-    width: 100%;
   }
   textarea{
-    width: 100%;
     padding: 10px;
     position: relative;
     outline: none;
@@ -203,7 +197,6 @@ a:hover {
   }
 
   button {
-    width: 100%;
     padding: 10px;
     outline: none;
     background-color: var(--backContainer1);

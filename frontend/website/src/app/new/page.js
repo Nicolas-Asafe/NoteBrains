@@ -2,7 +2,7 @@ import Link from "next/link"
 
 export default function page(){
     return(
-        <div className="stanContainer2 centerContainer AnimaAppear1">
+        <div className="stanContainer2 centerContainer stanFull2 AnimaAppear1">
             <header>
                 <h2>Select a org for create</h2>
                 <Link href={'/dashboard'}>back</Link>
@@ -14,4 +14,4 @@ export default function page(){
             </div>
         </div>
     )
-}
+} 

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
 import Cookies from "js-cookie";
+import ThemeToggleButton from "@/components/themeToogle";
 
 export default function Person() {
     const [me, setMe] = useState(null);
@@ -30,7 +31,7 @@ export default function Person() {
         ReqUser();
     }, []);
     return (
-        <main className="stanContainer2 centerContainer AnimaAppear1">
+        <main className="stanContainer2 stanFull2 centerContainer ">
             <header>
                 <h2>Your person</h2>
                 <Link href={'/dashboard'}>back</Link>

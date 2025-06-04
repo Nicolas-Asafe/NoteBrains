@@ -137,7 +137,7 @@ export default function Dashboard() {
           )}
 
           {isModalVisible && (
-            <div className={`centerContainer stanContainer2 animaAppear1 full`}>
+            <div className={`centerContainer stanContainer2 animaAppear1 full modal`}>
               <header>
                 modal of your org <X style={{cursor:'pointer'}} onClick={() => setIsModalVisible(false)} />
               </header>
