@@ -51,7 +51,7 @@ export default function Register() {
           <input
             className="hoverMega"
             type="email"
-            placeholder="Ex: example@gmail.com"
+            placeholder="Ex: exemplo@gmail.com"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}

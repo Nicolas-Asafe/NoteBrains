@@ -33,8 +33,8 @@ export default function Person() {
     return (
         <main className="stanContainer2 stanFull2 centerContainer AnimaAppear1">
             <header>
-                <h2>Your person</h2>
-                <Link href={'/dashboard'}>back</Link>
+                <h2>Sobre Você</h2>
+                <Link href={'/dashboard'}>Voltar</Link>
             </header>
             <header>
                 Preferências: 

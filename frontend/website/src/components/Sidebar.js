@@ -38,21 +38,22 @@ export default function Sidebar({ allItems = [] }) {
             <Copy size={30} className={styles.icon} />
           </Link>
           <Link href="/dashboard/person" className={styles["nav-link"]}>
-            Minha conta
+            Minha Conta
             <CircleUser size={30} className={styles.icon} />
           </Link>
-          <Link href="/new" className={styles["nav-link"]}>
-            Nova
+          <Link href="/new"  className={styles["nav-link"]}>
+            Novo
             <Plus size={30} className={styles.icon} />
           </Link>
-          <Link href="/" onClick={() => Cookies.remove("token")} className={styles["nav-link"]}>
-            Sair da conta
+          <Link href="/" onClick={() => Cookies.remove('token')} className={styles["nav-link"]}>
+            Sair
             <DoorOpen size={30} className={styles.icon} />
           </Link>
         </div>
 
         <div className={styles["org-list"]}>
           <header>
+
             <p>Seus orgs:</p>
           </header>
           <ul>
@@ -72,6 +73,7 @@ export default function Sidebar({ allItems = [] }) {
               </li>
             ))}
             {allItems.length === 0 && (
+
               <p className={styles["no-orgs"]}>Nenhum org foi encontrado.</p>
             )}
           </ul>

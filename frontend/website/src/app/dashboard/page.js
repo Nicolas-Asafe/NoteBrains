@@ -175,11 +175,12 @@ export default function Dashboard() {
 
         <div className={styles['content']}>
           <div className={styles["Header-home"]}>
-            <h1>My Orgs</h1>
+            <h1>minhas anotações</h1>
             <h2>Noteke</h2>
           </div>
 
           {loading ? (
+
             <div className={styles["Org-list"]}>
               <p className={styles["loading"]}>Carregando orgs...</p>
             </div>
@@ -188,6 +189,7 @@ export default function Dashboard() {
               {me?.orgs?.length ? me.orgs.map((org, index) => (
                 <div key={index} className={`${styles["Org"]} AppearBottomBar`}>
                   <div className={styles["l"]}>
+
                     <h3 className={styles["title"]}>{org?.title || "Sem título"}</h3>
                     <span className={styles["type"]}>Tipo: {org?.type || "Sem tipo"}</span><br />
                     <span className={styles["type"]}>
@@ -216,8 +218,10 @@ export default function Dashboard() {
           {isModalVisible && (
             <div className={`centerContainer  stanContainer2 ${modalOut ? 'animaClose' : 'animaAppear1'} full modal`}>
               <header>
+
                 {isEditMode ? "Editando org" : "Seu org selecionado"}
                 <X style={{ cursor: 'pointer' }} onClick={closeModal} />
+
               </header>
 
               {isEditMode ? (
