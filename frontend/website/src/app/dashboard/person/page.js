@@ -31,13 +31,22 @@ export default function Person() {
         ReqUser();
     }, []);
     return (
-        <main className="stanContainer2 stanFull2 centerContainer ">
+        <main className="stanContainer2 stanFull2 centerContainer AnimaAppear1">
             <header>
                 <h2>Your person</h2>
                 <Link href={'/dashboard'}>back</Link>
             </header>
+            <header>
+                Preferências: 
+                <section style={{
+                    display:"flex",
+                    gap:10
+                }}>
+                   <ThemeToggle />
+                </section>
+            </header>
             <div>
-                <span>Name:</span>
+                <span>Nome:</span>
                 <p>{me?.name}</p>
             </div>
             <div>
@@ -47,9 +56,6 @@ export default function Person() {
             <div>
                 <span>Id:</span>
                 <p>#{me?.id}</p>
-            </div>
-            <div>
-                <ThemeToggle />
             </div>
         </main>
     )

@@ -271,19 +271,18 @@ a:hover {
 }
 
 .AnimaAppear2 {
-  animation: 0.3s ease-out Appear2;
+  animation: 0.4s ease-out Appear2;
 }
 
 
 @keyframes Appear2 {
   0% {
+    transform: translateY(20%) scale(0.9);
     opacity: 0;
-    transform: scale(0.8);
   }
   100% {
     opacity: 1;
-        transform: scale(1);
-
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -292,3 +291,22 @@ a:hover {
   max-width: 800px;
   height: 90%;
 }
+
+
+.animaClose {
+  animation: fadeOut 0.25s ease forwards;
+}
+
+
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translate(-50%,-50%);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9) translate(-50%,-50%);
+  }
+}
+

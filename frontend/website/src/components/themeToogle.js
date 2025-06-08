@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { SunMedium, Moon } from "lucide-react";
+import style from '../styles/toggleTheme.module.css'
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState('light');
@@ -29,7 +30,7 @@ export default function ThemeToggle() {
   };
 
   return (
-    <button onClick={toggleTheme} className="theme-toggle-btn">
+    <button onClick={toggleTheme} className={`stanContainer1 hoverMega  ${style[`theme-toggle-btn`]}`}>
       {theme === 'light' ? <Moon color='black' size={24} /> : <SunMedium color='yellow' size={24} />}
     </button>
   );
