@@ -47,7 +47,7 @@ export default function Home() {
           <input
             className='hoverMega'
             type="email"
-            placeholder="Ex: example@gmail.com"
+            placeholder="Digite seu email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}

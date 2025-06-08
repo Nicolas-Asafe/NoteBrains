@@ -4,11 +4,13 @@ import Link from "next/link"
 import axios from 'axios'
 import { useState } from "react"
 import Cookies from 'js-cookie'
+import { useRouter } from 'next/navigation';
 
 export default function Note() {
   const [titleInput, setTitleInput] = useState('')
   const [descriptionInput, setDescriptionInput] = useState('')
   const [message, setMessage] = useState(['', false])
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -36,6 +38,7 @@ export default function Note() {
       setMessage([res?.data?.message, true])
       setTitleInput('')
       setDescriptionInput('')
+      router.push('/dashboard')
     } catch (err) {
       console.error("Erro ao criar nota:", err?.response?.data || err.message)
       setMessage([err?.response?.data?.data, false])
@@ -45,23 +48,23 @@ export default function Note() {
   return (
     <div className="stanContainer1 stanContainer2 centerContainer AnimaAppear1">
       <header>
-        <h2>Create a note here</h2>
-        <Link href={'/new'}>back</Link>
+        <h2>Crie uma nota aqui</h2>
+        <Link href={'/new'}>Voltar</Link>
       </header>
         <form className="stanForm1" onSubmit={handleSubmit}>
           <input
             className="hoverMega"
-            placeholder="Title"
+            placeholder="Titulo"
             value={titleInput}
             onChange={(e) => setTitleInput(e.target.value)}
           />
           <textarea
             className="hoverMega"
-            placeholder="Description"
+            placeholder="Descrição"
             value={descriptionInput}
             onChange={(e) => setDescriptionInput(e.target.value)}
           />
-          <button className="hoverOpac" type="submit">Create</button>
+          <button className="hoverOpac" type="submit">Criar</button>
         </form>
       <div className="msgContainer">
         {message[0] ? (

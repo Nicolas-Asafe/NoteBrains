@@ -33,11 +33,11 @@ export default function Person() {
     return (
         <main className="stanContainer2 centerContainer AnimaAppear1">
             <header>
-                <h2>Your person</h2>
-                <Link href={'/dashboard'}>back</Link>
+                <h2>Sobre Você</h2>
+                <Link href={'/dashboard'}>Voltar</Link>
             </header>
             <div>
-                <span>Name:</span>
+                <span>Nome:</span>
                 <p>{me?.name}</p>
             </div>
             <div>

@@ -13,26 +13,26 @@ export default function Sidebar({ allItems = [] }) {
         <div className={styles["nav-links"]}>
 
           <Link href="/dashboard" className={styles["nav-link"]}>
-            My orgs
+            Minhas Notas
             <Copy size={30} className={styles.icon} />
           </Link>
           <Link href="/dashboard/person" className={styles["nav-link"]}>
-            My account
+            Minha Conta
             <CircleUser size={30} className={styles.icon} />
           </Link>
           <Link href="/new"  className={styles["nav-link"]}>
-            New
+            Novo
             <Plus size={30} className={styles.icon} />
           </Link>
           <Link href="/" onClick={() => Cookies.remove('token')} className={styles["nav-link"]}>
-            Exit
+            Sair
             <DoorOpen size={30} className={styles.icon} />
           </Link>
         </div>
 
         <div className={styles["org-list"]}>
           <header>
-            <p>Your Orgs:</p>
+            <p>Suas Notas:</p>
 
           </header>
           <ul>
@@ -50,7 +50,7 @@ export default function Sidebar({ allItems = [] }) {
               </li>
             ))}
             {allItems.length === 0 && (
-              <p className={styles["no-orgs"]}>No orgs found.</p>
+              <p className={styles["no-orgs"]}>Nenhuma Anotação encontrada.</p>
             )}
           </ul>
         </div>

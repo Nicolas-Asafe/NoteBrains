@@ -95,13 +95,13 @@ export default function Dashboard() {
 
         <div className={styles['content']}>
           <div className={styles["Header-home"]}>
-            <h1>My Orgs</h1>
+            <h1>minhas anotações</h1>
             <h2>Noteke</h2>
           </div>
 
           {loading ? (
               <div className={styles["Org-list"]}>
-                <p className={styles["loading"]}>loading orgs...</p>
+                <p className={styles["loading"]}>carregando anotações...</p>
               </div>
           ) : (
             <div className={styles["Org-list"]}>
@@ -109,9 +109,9 @@ export default function Dashboard() {
                 <div key={index} className={`${styles["Org"]} AppearBottomBar`}>
                   <div className={styles["l"]}>
                     <h3 className={styles["title"]}>{org?.title || "No title"}</h3>
-                    <span className={styles["type"]}>Type: {org?.type || "Unknown"}</span><br />
+                    <span className={styles["type"]}>Tipo: {org?.type || "Unknown"}</span><br />
                     <span className={styles["type"]}>
-                      Create at: {org?.createdAt ? new Date(org.createdAt).toLocaleDateString() : "Unknown"}
+                      Criado em: {org?.createdAt ? new Date(org.createdAt).toLocaleDateString() : "Unknown"}
                     </span>
                   </div>
 
@@ -131,7 +131,7 @@ export default function Dashboard() {
                   </div>
                 </div>
               )) : (
-                <p>You don’t have orgs</p>
+                <p>Você não tem anotações</p>
               )}
             </div>
           )}
@@ -139,7 +139,7 @@ export default function Dashboard() {
           {isModalVisible && (
             <div className={`centerContainer stanContainer2 animaAppear1 full`}>
               <header>
-                modal of your org <X style={{cursor:'pointer'}} onClick={() => setIsModalVisible(false)} />
+                Modal da sua Nota <X style={{cursor:'pointer'}} onClick={() => setIsModalVisible(false)} />
               </header>
               <header>
                 <h3>{orgModal.title || "Selecione uma organização"}</h3>
