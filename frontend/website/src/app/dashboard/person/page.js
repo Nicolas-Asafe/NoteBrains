@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
 import Cookies from "js-cookie";
+import ThemeToggle from '../../../components/ThemeToogle';
 
 export default function Person() {
     const [me, setMe] = useState(null);
@@ -46,6 +47,9 @@ export default function Person() {
             <div>
                 <span>Id:</span>
                 <p>#{me?.id}</p>
+            </div>
+            <div>
+                <ThemeToggle />
             </div>
         </main>
     )

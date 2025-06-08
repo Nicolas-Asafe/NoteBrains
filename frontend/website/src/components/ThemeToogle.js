@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { SunMedium, Moon } from "lucide-react";
-import Styles from './themeToggle.module.css';
 
-export default function ThemeToggleButton() {
+export default function ThemeToggle() {
   const [theme, setTheme] = useState('light');
 
   useEffect(() => {
@@ -31,7 +30,7 @@ export default function ThemeToggleButton() {
 
   return (
     <button onClick={toggleTheme} className="theme-toggle-btn">
-      {theme === 'light' ? <Moon size={24} /> : <SunMedium size={24} />}
+      {theme === 'light' ? <Moon color='black' size={24} /> : <SunMedium color='yellow' size={24} />}
     </button>
   );
 }
