@@ -82,25 +82,48 @@ a:hover {
   text-align: center;
 }
 
-.stanFull1{
+.stanContainer1 {
   width: 90%;
   max-width: 500px;
-}
-
-.stanContainer1 {
   background-color: var(--backContainer2);
   box-shadow: var(--shadow);
   border: 2px solid var(--border-color);
   border-radius: var(--br);
   padding: 10px;
-}
+  input {
+    padding: 10px;
+    outline: none;
+    background-color: var(--backContainer3);
+    box-shadow: var(--shadow);
+    border: 2px solid var(--border-color2);
+    border-radius: var(--br);
+  }
+  textarea{
+    padding: 10px;
+    position: relative;
+    outline: none;
+    background-color: var(--backContainer3);
+    box-shadow: var(--shadow);
+    border: 2px solid var(--border-color2);
+    border-radius: var(--br);
+    resize: none;
+    height: 100%;
+  }
 
-.stanFull2{
+  button {
+    padding: 10px;
+    outline: none;
+    background-color: var(--backContainer1);
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    border: 2px solid var(--border-color2);
+    border-radius: var(--br);
+  }
+}
+.stanContainer2{
   width: 90%;
   height: 80%;
   max-width: 800px;
-}
-.stanContainer2{
   background-color: var(--backContainer2);
   box-shadow: var(--shadow);
   border: 2px solid var(--border-color);
@@ -176,35 +199,7 @@ a:hover {
   flex-direction: column;
   gap: 10px;
   padding: 10px;
-  input {
-    padding: 10px;
-    outline: none;
-    background-color: var(--backContainer3);
-    box-shadow: var(--shadow);
-    border: 2px solid var(--border-color2);
-    border-radius: var(--br);
-  }
-  textarea{
-    padding: 10px;
-    position: relative;
-    outline: none;
-    background-color: var(--backContainer3);
-    box-shadow: var(--shadow);
-    border: 2px solid var(--border-color2);
-    border-radius: var(--br);
-    resize: none;
-    height: 100%;
-  }
 
-  button {
-    padding: 10px;
-    outline: none;
-    background-color: var(--backContainer1);
-    cursor: pointer;
-    box-shadow: var(--shadow);
-    border: 2px solid var(--border-color2);
-    border-radius: var(--br);
-  }
   h1 {
     text-align: center;
   }
