@@ -14,12 +14,23 @@ export default function Dashboard() {
   const router = useRouter();
   const [me, setMe] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  // Estados pra modal e animações
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalOut, setModalOut] = useState(false);
+
+  // Estado pra animação de saída do dashboard
+  const [dashOut, setDashOut] = useState(false);
+
+  // Estado do modal e edição
   const [orgModal, setOrgModal] = useState({
     title: "",
     notes: "",
-    createdAt: ''
+    createdAt: '',
+    id: ''
   });
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editData, setEditData] = useState({ title: "", notes: "" });
 
   async function ReqUser() {
     setLoading(true);
@@ -60,6 +71,7 @@ export default function Dashboard() {
     }
   }
 
+  // Abrir modal pra visualização
   async function ReqOrg(id) {
     try {
       const response = await axios.get(
@@ -73,10 +85,78 @@ export default function Dashboard() {
         }
       );
       setOrgModal(response?.data?.data);
-      setOrgModalVisible(true);
+      setIsModalVisible(true);
+      setModalOut(false);
+      setIsEditMode(false);
     } catch (err) {
       console.log("Erro ao buscar org:", err?.response?.data?.message || err.message);
     }
+  }
+
+  // Abrir modal no modo edição
+  async function EditOrg(id) {
+    try {
+      const response = await axios.get(
+        `https://notebrains.onrender.com/api/v1/me/orgs/${id}`,
+        {
+          headers: {
+            'x-api-key': 'kingjs_4534',
+            'Authorization': `Bearer ${Cookies.get("token")}`,
+            'ngrok-skip-browser-warning': 'true'
+          }
+        }
+      );
+      const data = response?.data?.data;
+      setEditData({ title: data.title || "", notes: data.notes || "" });
+      setOrgModal(data);
+      setIsModalVisible(true);
+      setModalOut(false);
+      setIsEditMode(true);
+    } catch (err) {
+      console.log("Erro ao buscar org para edição:", err?.response?.data?.message || err.message);
+    }
+  }
+
+  // Salvar edição via form submit
+  async function SaveEdit(e) {
+    e.preventDefault();
+    try {
+      await axios.put(
+        `https://notebrains.onrender.com/api/v1/me/orgs/update/${orgModal.id}`,
+        editData,
+        {
+          headers: {
+            'x-api-key': 'kingjs_4534',
+            'Authorization': `Bearer ${Cookies.get("token")}`,
+            'ngrok-skip-browser-warning': 'true'
+          }
+        }
+      );
+      closeModal();
+      ReqUser();
+    } catch (err) {
+      console.log("Erro ao salvar edição:", err?.response?.data?.message || err.message);
+    }
+  }
+
+  // Função pra fechar modal com animação de saída
+  function closeModal() {
+    setModalOut(true);
+    setTimeout(() => {
+      setIsModalVisible(false);
+      setModalOut(false);
+      setOrgModal({ title: "", notes: "", createdAt: '', id: '' });
+      setIsEditMode(false);
+      setEditData({ title: "", notes: "" });
+    }, 250);
+  }
+
+  // Função pra sair do dashboard com animação
+  function closeDashboard() {
+    setDashOut(true);
+    setTimeout(() => {
+      router.push('/');
+    }, 250);
   }
 
   useEffect(() => {
@@ -90,7 +170,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <main className={`${styles['dashboard']} AnimaAppear2`}>
+      <main className={`${styles['dashboard']} ${dashOut ? 'animaClose' : 'animaAppear1'}`}>
         <Sidebar key={0} allItems={me?.orgs} />
 
         <div className={styles['content']}>
@@ -100,18 +180,20 @@ export default function Dashboard() {
           </div>
 
           {loading ? (
-              <div className={styles["Org-list"]}>
-                <p className={styles["loading"]}>carregando anotações...</p>
-              </div>
+
+            <div className={styles["Org-list"]}>
+              <p className={styles["loading"]}>Carregando orgs...</p>
+            </div>
           ) : (
             <div className={styles["Org-list"]}>
               {me?.orgs?.length ? me.orgs.map((org, index) => (
                 <div key={index} className={`${styles["Org"]} AppearBottomBar`}>
                   <div className={styles["l"]}>
-                    <h3 className={styles["title"]}>{org?.title || "No title"}</h3>
-                    <span className={styles["type"]}>Tipo: {org?.type || "Unknown"}</span><br />
+
+                    <h3 className={styles["title"]}>{org?.title || "Sem título"}</h3>
+                    <span className={styles["type"]}>Tipo: {org?.type || "Sem tipo"}</span><br />
                     <span className={styles["type"]}>
-                      Criado em: {org?.createdAt ? new Date(org.createdAt).toLocaleDateString() : "Unknown"}
+                      Criado em: {org?.createdAt ? new Date(org.createdAt).toLocaleDateString() : "Sem data"}
                     </span>
                   </div>
 
@@ -119,44 +201,66 @@ export default function Dashboard() {
                     <div className={`${styles["btn"]} ${styles["a1"]}`} onClick={() => DeleteOrg(org.id)}>
                       <Trash />
                     </div>
-                    <div className={`${styles["btn"]} ${styles["a2"]}`} onClick={() => {
-                      ReqOrg(org.id)
-                      setIsModalVisible(true)
-                    }}>
+                    <div className={`${styles["btn"]} ${styles["a2"]}`} onClick={() => ReqOrg(org.id)}>
                       <Eye />
                     </div>
-                    <div className={`${styles["btn"]} ${styles["a3"]}`}>
+                    <div className={`${styles["btn"]} ${styles["a3"]}`} onClick={() => EditOrg(org.id)}>
                       <Edit />
                     </div>
                   </div>
                 </div>
               )) : (
-                <p>Você não tem anotações</p>
+                <p>Você não tem orgs</p>
               )}
             </div>
           )}
 
           {isModalVisible && (
-            <div className={`centerContainer stanContainer2 animaAppear1 full`}>
+            <div className={`centerContainer  stanContainer2 ${modalOut ? 'animaClose' : 'animaAppear1'} full modal`}>
               <header>
-                Modal da sua Nota <X style={{cursor:'pointer'}} onClick={() => setIsModalVisible(false)} />
+
+                {isEditMode ? "Editando org" : "Seu org selecionado"}
+                <X style={{ cursor: 'pointer' }} onClick={closeModal} />
+
               </header>
-              <header>
-                <h3>{orgModal.title || "Selecione uma organização"}</h3>
-                <small>
-                  {orgModal.createdAt && `Criada em: ${new Date(orgModal.createdAt).toLocaleDateString()}`}
-                </small>
-              </header>
-              <div style={{ 
-                height:"80%"
-              }}><p>{orgModal.notes}</p>
-              </div>
+
+              {isEditMode ? (
+                <form onSubmit={SaveEdit} className='stanForm1'>
+                  <input
+                    type="text"
+                    value={editData.title}
+                    onChange={(e) => setEditData(prev => ({ ...prev, title: e.target.value }))}
+                    placeholder="Título"
+                    required
+                  />
+                  <textarea
+                    value={editData.notes}
+                    onChange={(e) => setEditData(prev => ({ ...prev, notes: e.target.value }))}
+                    placeholder="Notas"
+                    rows={8}
+                  />
+                  <button type="submit">Salvar</button>
+                </form>
+              ) : (
+                <>
+                  <header>
+                    <h3>{orgModal.title || "Selecione uma organização"}</h3>
+                    <small>
+                      {orgModal.createdAt && `Criada em: ${new Date(orgModal.createdAt).toLocaleDateString()}`}
+                    </small>
+                  </header>
+                  <div style={{ height: "80%" }}>
+                    <p>{orgModal.notes}</p>
+                  </div>
+                </>
+              )}
             </div>
           )}
 
+          <BottomBar />
+
         </div>
       </main>
-      <BottomBar />
     </>
   );
 }

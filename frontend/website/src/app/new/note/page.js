@@ -46,7 +46,7 @@ export default function Note() {
   }
 
   return (
-    <div className="stanContainer1 stanContainer2 centerContainer AnimaAppear1">
+    <div className="stanContainer1 stanContainer2 stanFull2 centerContainer AnimaAppear1">
       <header>
         <h2>Crie uma nota aqui</h2>
         <Link href={'/new'}>Voltar</Link>
