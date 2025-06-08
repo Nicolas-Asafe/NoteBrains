@@ -3,16 +3,30 @@ import serv from '../../../app.js'
 import jwt_middleware from "../../../_midlewares/jwt_middleware.js";
 
 export const register = tomato.NewRegister({
-    middlewares:[jwt_middleware],
-    path:"/",
-    caseError:(err,req,res)=>{
-        tomato.buildResponse(res,{message:"erro for list your person",data:err.message,status:500})
+    middlewares: [jwt_middleware],
+    path: "/",
+    caseError: (err, req, res) => {
+        tomato.buildResponse(res, {
+            message: "Erro ao listar seu perfil, tenta de novo aí",
+            data: err.message,
+            status: 500
+        });
     },
-    process:(req,res)=>{
-        const AllOfUser = serv.searchUserByEmail(req.user.email)
-        tomato.buildResponse(res,
-            {message:"User listed sucessfully",data:{user:AllOfUser}
-        })
-    }
-})
+    process: (req, res) => {
+        const user = serv.searchUserByEmail(req.user.email);
+        
+        if (!user) {
+            tomato.buildResponse(res, {
+                message: "Usuário não encontrado, bora registrar!",
+                status: 404
+            });
+            return;
+        }
 
+        tomato.buildResponse(res, {
+            message: "Perfil do usuário encontrado com sucesso 👌",
+            data: { user },
+            status: 200
+        });
+    }
+});

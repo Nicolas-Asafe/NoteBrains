@@ -7,7 +7,7 @@ export default async (req, res, next) => {
 
     if (!token) {
         return tomato.buildResponse(res, {
-            message: "token not found",
+            message: "Token não encontrado",
             status: 500
         });
     }
@@ -19,7 +19,7 @@ export default async (req, res, next) => {
         next();
     } catch (err) {
         return tomato.buildResponse(res, {
-            message: "Token is invalid or expired",
+            message: "Token inválido ou expirado",
             status: 401,
             data: err.message
         });

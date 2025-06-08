@@ -5,9 +5,9 @@ import serv from "../../app.js";
 export const register = tomato.NewRegister({
     method: "POST",
     path:"/register",
-    caseError: (err, req,res) => {
+    caseError: (err, req, res) => {
         tomato.buildResponse(res, {
-            message: "Error while creating user",
+            message: "Erro ao criar o usuário",
             status: 500,
             data: err.message  
         });
@@ -17,14 +17,15 @@ export const register = tomato.NewRegister({
         const body = req.body;
 
         if (!body || !body.name || !body.password || !body.email) {
-                throw new Error("Missing credentials: name, password, and email are required.")
+            throw new Error("Credenciais ausentes: nome, senha e e-mail são obrigatórios.")
         }
-        const hashPassword = await bcrypt.hash(body.password,10)
+
+        const hashPassword = await bcrypt.hash(body.password, 10)
         body.password = hashPassword
         serv.newUser(body);
 
         tomato.buildResponse(res, {
-            message: "User created successfully",
+            message: "Usuário criado com sucesso",
             status: 201, 
             data: {
                 name: body.name,

@@ -4,25 +4,32 @@ import serv from "../../../app.js";
 export const register = tomato.NewRegister({
     method: "DELETE",
     process: (req, res) => {
-        const id = serv.searchUserByEmail(req.user.email).id;
+        try {
+            const user = serv.searchUserByEmail(req.user.email);
+            if (!user || user.id === undefined || user.id === null) {
+                throw new Error("ID do usuário não encontrado");
+            }
 
-        if (id === undefined || id === null) {
-            throw new Error("id not found")
+            serv.deleteUser(parseInt(user.id));
+
+            tomato.buildResponse(res, {
+                message: "Usuário deletado com sucesso, sem dó nem piedade!",
+                status: 200,
+            });
+        } catch (err) {
+            tomato.buildResponse(res, {
+                message: "Erro ao deletar usuário",
+                status: 500,
+                data: err.message,
+            });
         }
-
-        serv.deleteUser(parseInt(id));
-
-        tomato.buildResponse(res, {
-            message: "User deleted successfully",
-            status: 200,
-        });
     },
 
     caseError: (err, req, res) => {
         tomato.buildResponse(res, {
-            message: 'erro for delete user',
+            message: "Erro ao deletar usuário (catch geral)",
             status: 500,
-            data: err.message
+            data: err.message,
         });
     }
-})
+});

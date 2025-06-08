@@ -9,7 +9,7 @@ const register = tomato.NewRegister({
 
         if (!id) {
             tomato.buildResponse(res, {
-                message: "Enter the user id on the params",
+                message: "Informe o ID do usuário nos parâmetros",
                 status: 400, 
             });
             return;
@@ -19,10 +19,10 @@ const register = tomato.NewRegister({
             const user = serv.searchUserById(parseInt(id));
 
             tomato.buildResponse(res, {
-                message: "User listed successfully",
+                message: "Usuário listado com sucesso",
                 data: {
-                    nameUser:user.name,
-                    orgs:user.orgs
+                    nameUser: user.name,
+                    orgs: user.orgs
                 },
                 status: 200,
             });
@@ -36,8 +36,8 @@ const register = tomato.NewRegister({
 
     caseError: (err, req, res) => {
         tomato.buildResponse(res, {
-            message: "erro for list user",
-            data:err.message,
+            message: "Erro ao listar o usuário",
+            data: err.message,
             status: 500,
         });
     }
